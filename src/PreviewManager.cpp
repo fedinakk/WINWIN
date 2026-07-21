@@ -65,6 +65,9 @@ winrt::Windows::Graphics::DirectX::Direct3D11::IDirect3DDevice g_winrtDevice{ nu
 
 } // namespace
 
+PreviewManager::PreviewManager() = default;
+PreviewManager::~PreviewManager() = default;
+
 bool PreviewManager::Init(HWND mainWnd, ID3D11Device* d3d, ID2D1Factory1* factory,
                           ID2D1DeviceContext* dc) {
     m_mainWnd = mainWnd;

@@ -30,6 +30,10 @@ class PreviewEntry; // hides all C++/WinRT types inside the .cpp
 
 class PreviewManager {
 public:
+    // Defined in the .cpp where PreviewEntry is complete (unique_ptr needs it).
+    PreviewManager();
+    ~PreviewManager();
+
     // Returns false when WGC is unavailable; the app then keeps geometric
     // zoom only (documented degradation, not a broken stub).
     bool Init(HWND mainWnd, ID3D11Device* d3d, ID2D1Factory1* factory, ID2D1DeviceContext* dc);
