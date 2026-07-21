@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\App.cpp"><Filter>src</Filter></ClCompile>
+    <ClCompile Include="src\CanvasWindow.cpp"><Filter>src</Filter></ClCompile>
+    <ClCompile Include="src\Config.cpp"><Filter>src</Filter></ClCompile>
+    <ClCompile Include="src\FpsOverlay.cpp"><Filter>src</Filter></ClCompile>
+    <ClCompile Include="src\Input.cpp"><Filter>src</Filter></ClCompile>
+    <ClCompile Include="src\Main.cpp"><Filter>src</Filter></ClCompile>
+    <ClCompile Include="src\PreviewManager.cpp"><Filter>src</Filter></ClCompile>
+    <ClCompile Include="src\Snap.cpp"><Filter>src</Filter></ClCompile>
+    <ClCompile Include="src\Tray.cpp"><Filter>src</Filter></ClCompile>
+    <ClCompile Include="src\WindowTracker.cpp"><Filter>src</Filter></ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\App.h"><Filter>src</Filter></ClInclude>
+    <ClInclude Include="src\Camera.h"><Filter>src</Filter></ClInclude>
+    <ClInclude Include="src\CanvasWindow.h"><Filter>src</Filter></ClInclude>
+    <ClInclude Include="src\Common.h"><Filter>src</Filter></ClInclude>
+    <ClInclude Include="src\Config.h"><Filter>src</Filter></ClInclude>
+    <ClInclude Include="src\FpsOverlay.h"><Filter>src</Filter></ClInclude>
+    <ClInclude Include="src\Input.h"><Filter>src</Filter></ClInclude>
+    <ClInclude Include="src\PreviewManager.h"><Filter>src</Filter></ClInclude>
+    <ClInclude Include="src\Snap.h"><Filter>src</Filter></ClInclude>
+    <ClInclude Include="src\Tray.h"><Filter>src</Filter></ClInclude>
+    <ClInclude Include="src\WindowTracker.h"><Filter>src</Filter></ClInclude>
+  </ItemGroup>
+</Project>
