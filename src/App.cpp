@@ -203,11 +203,11 @@ void App::OnPanEnd(POINT pt, bool maybeClick) {
     if (!m_panning) return;
     m_panning = false;
 
-    const int moved = abs(pt.x - m_panStart.x) + abs(pt.y - m_panStart.y);
+    const int moved = std::abs((int)(pt.x - m_panStart.x)) + std::abs((int)(pt.y - m_panStart.y));
     if (maybeClick && moved < 5) {
         // A click on empty canvas. In preview mode: fly to the clicked window.
         if (m_previewMode) {
-            Vec2 v = m_cam.ScreenToVirtual({ (double)pt.x, (double)pt.y });
+            Vec2 v = m_cam.ScreenToVirtual(Vec2{ (double)pt.x, (double)pt.y });
             for (auto& mw : m_tracker.Windows()) {
                 if (!mw.parked) continue;
                 if (v.x >= mw.virt.x && v.x <= mw.virt.Right() &&
@@ -268,12 +268,12 @@ void App::OnDragBegin(POINT pt, bool cluster) {
             m_dragBounds = { l, t, rt - l, bt - t };
         }
     }
-    m_dragStartMouseV = m_cam.ScreenToVirtual({ (double)pt.x, (double)pt.y });
+    m_dragStartMouseV = m_cam.ScreenToVirtual(Vec2{ (double)pt.x, (double)pt.y });
 }
 
 void App::OnDragMove(POINT pt) {
     if (!m_dragging || m_dragSet.empty()) return;
-    Vec2 v = m_cam.ScreenToVirtual({ (double)pt.x, (double)pt.y });
+    Vec2 v = m_cam.ScreenToVirtual(Vec2{ (double)pt.x, (double)pt.y });
     Vec2 delta = v - m_dragStartMouseV;
     Vec2 raw = { m_dragBounds.x + delta.x, m_dragBounds.y + delta.y };
 
@@ -328,12 +328,12 @@ void App::OnResizeBegin(POINT pt, bool cluster) {
             m_dragBounds = { l, t, rt - l, bt - t };
         }
     }
-    m_dragStartMouseV = m_cam.ScreenToVirtual({ (double)pt.x, (double)pt.y });
+    m_dragStartMouseV = m_cam.ScreenToVirtual(Vec2{ (double)pt.x, (double)pt.y });
 }
 
 void App::OnResizeMove(POINT pt) {
     if (!m_resizing || m_dragSet.empty()) return;
-    Vec2 v = m_cam.ScreenToVirtual({ (double)pt.x, (double)pt.y });
+    Vec2 v = m_cam.ScreenToVirtual(Vec2{ (double)pt.x, (double)pt.y });
     Vec2 delta = v - m_dragStartMouseV;
 
     if (m_resizeCluster && m_dragSet.size() > 1) {
@@ -474,7 +474,7 @@ void App::CenterForeground() {
 void App::ResetZoom() {
     POINT c = ScreenCenter();
     Camera target = m_cam;
-    Vec2 v = m_cam.ScreenToVirtual({ (double)c.x, (double)c.y });
+    Vec2 v = m_cam.ScreenToVirtual(Vec2{ (double)c.x, (double)c.y });
     target.scale = 1.0;
     target.offset = { v.x - c.x, v.y - c.y };
     FlyTo(target);

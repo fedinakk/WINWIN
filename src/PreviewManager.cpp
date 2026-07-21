@@ -2,6 +2,7 @@
 
 #include <d3d11.h>
 #include <d2d1_1.h>
+#include <d2d1_1helper.h>
 #include <dxgi.h>
 #include <inspectable.h>
 
@@ -87,6 +88,11 @@ bool PreviewManager::Init(HWND mainWnd, ID3D11Device* d3d, ID2D1Factory1* factor
 
 void PreviewManager::Shutdown() {
     StopAll();
+    {
+        // Sessions are closed; give straggler callbacks a beat, then free.
+        std::lock_guard<std::mutex> lock(m_mutex);
+        m_graveyard.clear();
+    }
     g_winrtDevice = nullptr;
     m_available = false;
 }
@@ -198,7 +204,11 @@ void PreviewManager::Stop(HWND target) {
             }
         }
     }
-    if (victim) victim->Close(); // outside the lock: Close waits for callbacks
+    if (victim) {
+        victim->Close(); // outside the lock; a callback may still be in flight
+        std::lock_guard<std::mutex> lock(m_mutex);
+        m_graveyard.push_back(std::move(victim)); // freed at Shutdown only
+    }
 }
 
 void PreviewManager::StopAll() {
@@ -208,6 +218,8 @@ void PreviewManager::StopAll() {
         victims.swap(m_entries);
     }
     for (auto& v : victims) v->Close();
+    std::lock_guard<std::mutex> lock(m_mutex);
+    for (auto& v : victims) m_graveyard.push_back(std::move(v));
 }
 
 ID2D1Bitmap1* PreviewManager::AcquireBitmap(HWND target) {

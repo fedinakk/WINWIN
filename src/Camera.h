@@ -21,14 +21,14 @@ struct Camera {
         return { s.x / scale + offset.x, s.y / scale + offset.y };
     }
     RECT VirtualToScreen(const VRect& r) const {
-        Vec2 tl = VirtualToScreen({r.x, r.y});
-        Vec2 br = VirtualToScreen({r.Right(), r.Bottom()});
+        Vec2 tl = VirtualToScreen(Vec2{r.x, r.y});
+        Vec2 br = VirtualToScreen(Vec2{r.Right(), r.Bottom()});
         return RECT{ (LONG)std::lround(tl.x), (LONG)std::lround(tl.y),
                      (LONG)std::lround(br.x), (LONG)std::lround(br.y) };
     }
     VRect ScreenToVirtual(const RECT& r) const {
-        Vec2 tl = ScreenToVirtual({(double)r.left, (double)r.top});
-        Vec2 br = ScreenToVirtual({(double)r.right, (double)r.bottom});
+        Vec2 tl = ScreenToVirtual(Vec2{(double)r.left, (double)r.top});
+        Vec2 br = ScreenToVirtual(Vec2{(double)r.right, (double)r.bottom});
         return VRect{ tl.x, tl.y, br.x - tl.x, br.y - tl.y };
     }
 

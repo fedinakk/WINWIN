@@ -1,5 +1,10 @@
 #include "Config.h"
 
+#include <cstdio>
+#include <cstdlib>
+#include <cwchar>
+#include <cwctype>
+
 namespace {
 
 std::wstring ExeDir() {

@@ -1,6 +1,7 @@
 #include "CanvasWindow.h"
 
 #include <d2d1helper.h>
+#include <d2d1_1helper.h>
 #include <wincodec.h>
 
 namespace {
@@ -375,8 +376,8 @@ void CanvasWindow::Render(const std::vector<PreviewDraw>& previews) {
         m_dc->SetTransform(D2D1::Matrix3x2F::Identity());
         for (const auto& p : previews) {
             if (p.title.empty()) continue;
-            Vec2 tl = m_cam->VirtualToScreen({ p.virt.x, p.virt.y });
-            Vec2 br = m_cam->VirtualToScreen({ p.virt.Right(), p.virt.Bottom() });
+            Vec2 tl = m_cam->VirtualToScreen(Vec2{ p.virt.x, p.virt.y });
+            Vec2 br = m_cam->VirtualToScreen(Vec2{ p.virt.Right(), p.virt.Bottom() });
             float x = (float)(tl.x - m_bounds.left);
             float y = (float)(tl.y - m_bounds.top);
             float wpx = (float)(br.x - tl.x);

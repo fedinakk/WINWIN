@@ -18,6 +18,7 @@
 
 #include "Common.h"
 
+#include <memory>
 #include <mutex>
 
 struct ID3D11Device;
@@ -58,4 +59,7 @@ private:
     ID2D1Factory1* m_factory = nullptr;
     std::mutex m_mutex;
     std::vector<std::unique_ptr<PreviewEntry>> m_entries;
+    // Closed entries are kept until Shutdown: a FrameArrived callback already
+    // in flight on a capture worker may still touch its entry briefly.
+    std::vector<std::unique_ptr<PreviewEntry>> m_graveyard;
 };
